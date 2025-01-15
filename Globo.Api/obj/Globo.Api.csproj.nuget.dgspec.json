@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alvin\\Documents\\Globo\\Globo.Api\\Globo.Api.csproj": {}
+    "/Users/alvinramirez/Documents/Github/Globo/Globo.Api/Globo.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alvin\\Documents\\Globo\\Globo.Api\\Globo.Api.csproj": {
+    "/Users/alvinramirez/Documents/Github/Globo/Globo.Api/Globo.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alvin\\Documents\\Globo\\Globo.Api\\Globo.Api.csproj",
+        "projectUniqueName": "/Users/alvinramirez/Documents/Github/Globo/Globo.Api/Globo.Api.csproj",
         "projectName": "Globo.Api",
-        "projectPath": "C:\\Users\\Alvin\\Documents\\Globo\\Globo.Api\\Globo.Api.csproj",
-        "packagesPath": "C:\\Users\\Alvin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alvin\\Documents\\Globo\\Globo.Api\\obj\\",
+        "projectPath": "/Users/alvinramirez/Documents/Github/Globo/Globo.Api/Globo.Api.csproj",
+        "packagesPath": "/Users/alvinramirez/.nuget/packages/",
+        "outputPath": "/Users/alvinramirez/Documents/Github/Globo/Globo.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Alvin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/alvinramirez/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -49,6 +47,10 @@
               "target": "Package",
               "version": "[8.0.5, )"
             },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
@@ -73,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

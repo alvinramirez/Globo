@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Globo.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+95f657610cdbcc92f084bac27aacbdef85fa356f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5dffae6dc8c3ea3b12afed88ce163534cbb3f6e2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Globo.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Globo.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
