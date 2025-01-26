@@ -1,14 +1,14 @@
 import useFetchHouses from "../hooks/HouseHooks";
 
 const HouseList = () => {
-    const houses = useFetchHouses();
+    const { data } = useFetchHouses();
 
     return (
         <div>
             <div className="row mb-2">
                 <h5 className="themeFontColor text-center">
                     Houses currently on the market
-                </h5>
+                </h5>   
             </div>
             <table className="table table-hover">
                 <thead>
@@ -19,7 +19,7 @@ const HouseList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {houses.map((h) => (
+                    {data && data.map((h) => (
                         <tr key={h.id}>
                             <td>{h.address}</td>
                             <td>{h.country}</td>
