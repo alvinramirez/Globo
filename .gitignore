@@ -1,0 +1,43 @@
+# Node.js dependencies
+Globo.App/node_modules/
+Globo.App/dist/
+Globo.App/.parcel-cache/
+Globo.App/.next/
+Globo.App/.nuxt/
+Globo.App/.cache/
+Globo.App/build/
+
+# .NET dependencies
+Globo.Api/bin/
+Globo.Api/obj/
+Globo.Api/.vs/
+Globo.Api/.vscode/
+Globo.Api/*.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories, files and envs
+.vscode/
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+**/.env
+**/.env.local
+**/.env.development
+**/.env.production
+**/.DS_Store
