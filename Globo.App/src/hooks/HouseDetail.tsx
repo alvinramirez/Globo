@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useFetchHouse } from "./HouseHooks";
 import ApiStatus from "../apiStatus";
 import { currencyFormatter } from "../config";
+import defaultPhoto from "../house/defaultPhoto";
 
 const HouseDetail = () => {
     const { id } = useParams();
