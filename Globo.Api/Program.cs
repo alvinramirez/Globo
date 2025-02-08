@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,5 +37,11 @@ app.MapGet("/houses/{houseId:int}", async (int houseId, IHouseRepository repo) =
                 statusCode: 404);
     return Results.Ok(house);
 }).ProducesProblem(404).Produces<HouseDetailDto>(StatusCodes.Status200OK);
+
+app.MapPost("/houses", async ([FromBody]HouseDetailDto dto,
+    IHouseRepository repo) => 
+{
+    var newHouse = repo.Add(dto;)
+});
 
 app.Run();
