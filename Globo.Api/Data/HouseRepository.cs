@@ -52,4 +52,15 @@ public class HouseRepository : IHouseRepository
         await context.SaveChangesAsync();
         return EntityToDetailDto(entity);
     }
+
+    public async Task<HouseDetailDto> Update(HouseDetailDto dto)
+    {
+        var entity = await context.Houses.FindAsync(dto.Id);
+        if (entity == null)
+            throw new ArgumentException($"Error updating house {dto.Id}");
+        DtoToEntity(dto, entity);
+        context.Entry(entity).State = EntityState.Modified;
+        await context.SaveChangesAsync();
+        return EntityToDetailDto(entity);
+    }
 }
