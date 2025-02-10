@@ -14,6 +14,22 @@ public class HouseRepository : IHouseRepository
         this.context = context;
     }
 
+    private static void DtoToEntity(HouseDetailDto, dto,
+        HouseEntity e)
+    {
+        e.Address = dto.Address;
+        e.Country = dto.Country;
+        e.Description = dto.Description;
+        e.Price = dto.Price;
+        e.Photo = dto.Photo;
+    }
+
+    private static HouseDetailDto EntityToDetailDto(HouseEntity e)
+    {
+        return new HouseDetailDto(e.Id, e.Address, e.Country,
+            e.Price, e.Description, e.Photo);
+    }
+
     public async Task<List<HouseDto>> GetAll()
     {
         return await context.Houses.Select(h => new HouseDto(h.Id, h.Address, h.Country, h.Price)).ToListAsync();
@@ -25,6 +41,15 @@ public class HouseRepository : IHouseRepository
             h => h.Id == id);
         if (e == null)
             return null;
-        return new HouseDetailDto(e.Id, e.Address, e.Country, e.Price, e.Description, e.Photo);
+        return EntityToDetailDto(e);
+    }
+
+    public async Task<HouseDetailDto> Add(HouseDetailDto dto)
+    {
+        var entity = new HouseEntity();
+        DtoToEntity(dto, entity);
+        context.Houses.Add(entity);
+        await context.SaveChangesAsync();
+        return EntityToDetailDto(entity);
     }
 }
