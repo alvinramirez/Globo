@@ -63,4 +63,12 @@ public class HouseRepository : IHouseRepository
         await context.SaveChangesAsync();
         return EntityToDetailDto(entity);
     }
+
+    public async Task Delete(int id)
+    {
+        var entity = await context.Houses.FindAsync(id);
+        if (entity == null)
+            throw new ArgumentException($"Error deleting house {dto.Id}");
+        context.Houses.Remove(entity);
+    }
 }
