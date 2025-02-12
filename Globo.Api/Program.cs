@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +42,7 @@ app.MapGet("/houses/{houseId:int}", async (int houseId, IHouseRepository repo) =
 app.MapPost("/houses", async ([FromBody]HouseDetailDto dto,
     IHouseRepository repo) => 
 {
-    var newHouse = repo.Add(dto);
+    var newHouse = await repo.Add(dto);
     return Results.Created($"/house/{newHouse.Id}", newHouse);
 }).Produces<HouseDetailDto>(StatusCodes.Status201Created);
 
@@ -53,7 +54,7 @@ app.MapPut("/houses", async ([FromBody]HouseDetailDto dto,
             statusCode:404);
     var updatedHouse = await repo.Update(dto);
     return Results.Ok(updatedHouse);
-}).ProducesProblem(404).Produces<HouseDetailDto>(StatusCode.Status200OK);
+}).ProducesProblem(404).Produces<HouseDetailDto>(StatusCodes.Status200OK);
 
 app.MapDelete("/houses/{houseId:int}", async (int houseId,
     IHouseRepository repo) => 
