@@ -4,6 +4,9 @@ public interface IHouseRepository
 {
     Task<List<HouseDto>> GetAll();
     Task<HouseDetailDto?> Get(int id);
+    Task<HouseDetailDto> Add(HouseDetailDto dto);
+    Task<HouseDetailDto> Update(HouseDetailDto dto);
+    Task Delete(int id);
 }
 
 public class HouseRepository : IHouseRepository
@@ -14,7 +17,7 @@ public class HouseRepository : IHouseRepository
         this.context = context;
     }
 
-    private static void DtoToEntity(HouseDetailDto, dto,
+    private static void DtoToEntity(HouseDetailDto dto,
         HouseEntity e)
     {
         e.Address = dto.Address;
@@ -68,7 +71,7 @@ public class HouseRepository : IHouseRepository
     {
         var entity = await context.Houses.FindAsync(id);
         if (entity == null)
-            throw new ArgumentException($"Error deleting house {dto.Id}");
+            throw new ArgumentException($"Error deleting house {id}");
         context.Houses.Remove(entity);
     }
 }
