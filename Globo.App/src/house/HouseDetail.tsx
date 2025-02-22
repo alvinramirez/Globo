@@ -15,6 +15,7 @@ const HouseDetail = () => {
 
     if (!isSuccess) return <ApiStatus status={status}/>
     if (!data) return <div>House not found</div>
+
     return (
     <div className="row">
       <div className="col-6">
@@ -25,12 +26,10 @@ const HouseDetail = () => {
             alt="House pic"
           />
         </div>
+        {data?.id && (
         <div className="row mt-3">
           <div className="col-2">
-            <Link
-              className="btn btn-primary w-100"
-              to={`/house/edit/${data.id}`}
-            >
+            <Link className="btn btn-primary w-100" to={`/house/edit/${data.id}`}>
               Edit
             </Link>
           </div>
@@ -38,14 +37,14 @@ const HouseDetail = () => {
             <button
               className="btn btn-danger w-100"
               onClick={() => {
-                if (window.confirm("Are you sure?"))
-                  deleteHouseMutation.mutate(data);
+                if (window.confirm("Are you sure?")) deleteHouseMutation.mutate(data);
               }}
             >
               Delete
             </button>
           </div>
         </div>
+        )}
       </div>
       <div className="col-6">
         <div className="row mt-2">
