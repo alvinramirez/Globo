@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HouseList from '../house/HouseList';
 import './App.css'
 import Header from './Header';
-import HouseDetail from '../hooks/HouseDetail';
+import HouseDetail from '../house/HouseDetail';
 import HouseAdd from '../house/HouseAdd';
 import HouseEdit from '../house/HouseEdit';
 
