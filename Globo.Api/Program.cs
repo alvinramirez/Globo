@@ -76,4 +76,14 @@ app.MapDelete("/houses/{houseId:int}", async (int houseId,
     return Results.Ok();
 }).ProducesProblem(404).Produces(StatusCodes.Status200OK);
 
+app.MapGet("house/{houseId:int}/bids", async (int houseId, 
+    IHouseRepository houseRepo, IBidRepository bidRepo) => 
+{
+    if (await houseRepo.Get(houseId) == null)
+        return Results.Problem($"House {houseId} not found",
+            statusCode: 404);
+        var bids = await bidRepo.Get(houseId);
+        return Results.Ok(bids);
+});
+
 app.Run();
