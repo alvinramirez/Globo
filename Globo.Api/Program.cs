@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using MiniValidation;
+using Globo.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
