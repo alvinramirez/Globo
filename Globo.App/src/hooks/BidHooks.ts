@@ -19,7 +19,7 @@ const useAddBid = () => {
     return useMutation<AxiosResponse, AxiosError<Problem>, Bid>({
         mutationFn: (b) =>
             axios.post(`${Config.baseApiUrl}/house/${b.houseId}/bids`, b),
-        onSuccess: (resp, bid) => {
+        onSuccess: (_, bid) => {
             queryClient.invalidateQueries({
                 queryKey: ["bids", bid.houseId]
             });
