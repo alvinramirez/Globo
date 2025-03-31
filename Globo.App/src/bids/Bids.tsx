@@ -23,7 +23,16 @@ const Bids = ({ house }: Args) => {
 
     if (!isSuccess) return <ApiStatus status={status}/>;
 
+    const [error, setError] = useState<string | null>(null);
+
+    const highestBid = data?.length ? Math.max(...data.map((b) => b.amount)) : 0;
+
     const onBidSubmitClick = () => {
+        if (bid.amount <= highestBid) {
+            setError(`The bid must be higher than ${currencyFormatter.format(highestBid)}`);
+            return;
+        }
+        setError(null);
         addBidMutation.mutate(bid);
         setBid(emptyBid);
     }
@@ -83,6 +92,11 @@ const Bids = ({ house }: Args) => {
               </button>
             </div>
           </div>
+          {error && (
+            <div className="row mt-2">
+                <div className="col-12 text-danger">{error}</div>
+            </div>
+          )}
         </>
       );
 };
