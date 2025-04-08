@@ -20,10 +20,9 @@ const Bids = ({ house }: Args) => {
         amount: 0,
     };
     const [bid, setBid] = useState<Bid>(emptyBid);
+    const [error, setError] = useState<string | null>(null);
 
     if (!isSuccess) return <ApiStatus status={status}/>;
-
-    const [error, setError] = useState<string | null>(null);
 
     const highestBid = data?.length ? Math.max(...data.map((b) => b.amount)) : 0;
 
