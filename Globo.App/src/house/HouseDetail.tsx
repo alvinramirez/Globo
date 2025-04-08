@@ -17,6 +17,8 @@ const HouseDetail = () => {
     if (!isSuccess) return <ApiStatus status={status}/>
     if (!data) return <div>House not found</div>
 
+    console.log("Casa cargada:", data);
+
     return (
     <div className="row">
       <div className="col-6">
