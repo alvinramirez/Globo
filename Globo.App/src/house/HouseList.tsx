@@ -3,44 +3,73 @@ import { currencyFormatter } from "../config";
 import ApiStatus from "../apiStatus";
 import { Link, useNavigate } from "react-router-dom";
 
-const HouseList = () => {
+import {
+    Box,
+    Button,
+    Container,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography,
+  } from "@mui/material";
+  
+  const HouseList = () => {
     const nav = useNavigate();
-
     const { data, status, isSuccess } = useFetchHouses();
-
-    if (!isSuccess)
-        return <ApiStatus status={status} />
-
+  
+    if (!isSuccess) return <ApiStatus status={status} />;
+  
     return (
-        <div>
-            <div className="row mb-2">
-                <h5 className="themeFontColor text-center">
-                    Houses currently on the market
-                </h5>   
-            </div>
-            <table className="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Address</th>
-                        <th>Country</th>
-                        <th>Asking Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data && data.map((h) => (
-                        <tr key={h.id} onClick={() => nav(`/house/${h.id}`)}>
-                            <td>{h.address}</td>
-                            <td>{h.country}</td>
-                            <td>{currencyFormatter.format(h.price)}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <Link className="btn btn-primary" to="/house/add">
-                Add
-            </Link>
-        </div>
+      <Container maxWidth="sm" sx={{ mt: 4 }}>
+        <Box textAlign="center" mb={3}>
+          <Typography variant="h5" color="primary" fontWeight="bold">
+            Houses currently on the market
+          </Typography>
+        </Box>
+  
+        <TableContainer component={Paper} elevation={3}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell><strong>Address</strong></TableCell>
+                <TableCell><strong>Country</strong></TableCell>
+                <TableCell><strong>Asking Price</strong></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data &&
+                data.map((h) => (
+                  <TableRow
+                    key={h.id}
+                    hover
+                    onClick={() => nav(`/house/${h.id}`)}
+                    sx={{ cursor: "pointer" }}
+                  >
+                    <TableCell>{h.address}</TableCell>
+                    <TableCell>{h.country}</TableCell>
+                    <TableCell>{currencyFormatter.format(h.price)}</TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+  
+        <Box display="flex" justifyContent="center" mt={3}>
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/house/add"
+          >
+            Add House
+          </Button>
+        </Box>
+      </Container>
     );
-};
+  };
 
 export default HouseList;
