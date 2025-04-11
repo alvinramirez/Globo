@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import logo from './GloboLogo.png'
+import logo from './GloboLogo.png';
+import { Box, Typography, Grid } from "@mui/material";
 
 type Args = {
     subtitle: string;
@@ -7,18 +8,39 @@ type Args = {
 
 const Header = ({ subtitle }: Args) => {
     const nav = useNavigate();
+
     return (
-        <header className="row mb-4">
-            <div className="col-5">
-                <img
+        <Box component="header" sx={{ mb: 4 }}>
+            <Grid container alignItems="center" spacing={2}>
+                <Grid item xs={12} sm={5}>
+                <Box
+                    component="img"
                     src={logo}
-                    className="logo"
                     alt="logo"
                     onClick={() => nav("/")}
+                    sx={{
+                    maxWidth: "150px",
+                    cursor: "pointer",
+                    display: "block",
+                    mx: { xs: "auto", sm: "0" },
+                    }}
                 />
-            </div>
-            <div className="col-7 mt-5 subtitle">{subtitle}</div>
-        </header>
+                </Grid>
+                <Grid item xs={12} sm={7}>
+                <Typography
+                    variant="subtitle1"
+                    color="secondary"
+                    sx={{
+                    mt: { xs: 2, sm: 5 },
+                    textAlign: { xs: "center", sm: "left" },
+                    display: { xs: "none", sm: "block" },
+                    }}
+                >
+                    {subtitle}
+                </Typography>
+                </Grid>
+            </Grid>
+    </Box>
     );
 };
 
