@@ -5,13 +5,23 @@ import { currencyFormatter } from "../config";
 import defaultImage from "./defaultPhoto";
 import Bids from "../bids/Bids";
 
+import {
+  Box,
+  Typography,
+  Grid,
+  Button,
+  Card,
+  CardMedia,
+  CardContent,
+  Stack,
+} from "@mui/material";
+
 const HouseDetail = () => {
     const { id } = useParams();
     if (!id) throw Error("House id not found")
     const houseId = parseInt(id);
 
     const { data, status, isSuccess} = useFetchHouse(houseId);
-
     const deleteHouseMutation = useDeleteHouse();
 
     if (!isSuccess) return <ApiStatus status={status}/>
@@ -20,53 +30,63 @@ const HouseDetail = () => {
     console.log("Casa cargada:", data);
 
     return (
-    <div className="row">
-      <div className="col-6">
-        <div className="row">
-          <img
-            className="img-fluid"
-            src={data.photo ? data.photo : defaultImage}
-            alt="House pic"
-          />
-        </div>
-        {data?.id && (
-        <div className="row mt-3">
-          <div className="col-2">
-            <Link className="btn btn-primary w-100" to={`/house/edit/${data.id}`}>
-              Edit
-            </Link>
-          </div>
-          <div className="col-2">
-            <button
-              className="btn btn-danger w-100"
-              onClick={() => {
-                if (window.confirm("Are you sure?")) deleteHouseMutation.mutate(data);
-              }}
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-        )}
-      </div>
-      <div className="col-6">
-        <div className="row mt-2">
-          <h5 className="col-12">{data.country}</h5>
-        </div>
-        <div className="row">
-          <h3 className="col-12">{data.address}</h3>
-        </div>
-        <div className="row">
-          <h2 className="themeFontColor col-12">
-            {currencyFormatter.format(data.price)}
-          </h2>
-        </div>
-        <div className="row">
-              <div className="col-12 mt-3">{data.description}</div>
-        </div>
-        <Bids house={data} />
-      </div>
-    </div>
+      <Box sx={{ mt: 4 }}>
+      <Grid container spacing={4}>
+        {/* Imagen y botones */}
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardMedia
+              component="img"
+              height="250"
+              image={data.photo || defaultImage}
+              alt="House pic"
+              sx={{ objectFit: "cover" }}
+            />
+            <CardContent>
+              <Stack direction="row" spacing={2}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  component={Link}
+                  to={`/house/edit/${data.id}`}
+                >
+                  Edit
+                </Button>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  color="error"
+                  onClick={() => {
+                    if (window.confirm("Are you sure?"))
+                      deleteHouseMutation.mutate(data);
+                  }}
+                >
+                  Delete
+                </Button>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Box>
+            <Typography variant="h6" color="text.secondary">
+              {data.country}
+            </Typography>
+            <Typography variant="h4" fontWeight="bold">
+              {data.address}
+            </Typography>
+            <Typography variant="h5" color="primary" sx={{ my: 2 }}>
+              {currencyFormatter.format(data.price)}
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 3 }}>
+              {data.description}
+            </Typography>
+
+            <Bids house={data} />
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
     );
 };
 
