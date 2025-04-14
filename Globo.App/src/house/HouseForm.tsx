@@ -1,6 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { House } from "../types/house"
 import toBase64 from "../toBase64";
+
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  Stack
+} from "@mui/material";
 
 type Args = {
     house: House;
@@ -10,8 +19,7 @@ type Args = {
 const HouseForm = ({ house, submitted }: Args) => {
     const [houseState, setHouseState] = useState({ ...house });
 
-    const onSubmit: React.MouseEventHandler<HTMLButtonElement> =
-        async (e) => {
+    const onSubmit = async (e: React.FormEvent) => {
             e.preventDefault();
             submitted(houseState);
         }
@@ -19,84 +27,95 @@ const HouseForm = ({ house, submitted }: Args) => {
     const onFileSelected = async (e: React.ChangeEvent<HTMLInputElement>)
         :Promise<void> => {
           e.preventDefault();
-          e.target.files && e.target.files[0] && 
-            setHouseState({ ...houseState,
-              photo: await toBase64(e.target.files[0])})
-        }
+          if (e.target.files && e.target.files[0])
+          {
+            setHouseState({
+              ...houseState,
+              photo: await toBase64(e.target.files[0]),
+            });
+          }
+        };
 
     return (
-        <form className="mt-2">
-      <div className="form-group">
-        <label htmlFor="address">Address</label>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Address"
-          value={houseState.address}
-          onChange={(e) =>
-            setHouseState({ ...houseState, address: e.target.value })
-          }
-        />
-      </div>
-      <div className="form-group mt-2">
-        <label htmlFor="country">Country</label>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Country"
-          value={houseState.country}
-          onChange={(e) =>
-            setHouseState({ ...houseState, country: e.target.value })
-          }
-        />
-      </div>
-      <div className="form-group mt-2">
-        <label htmlFor="description">Description</label>
-        <textarea
-          className="form-control"
-          placeholder="Description"
-          value={houseState.description}
-          onChange={(e) =>
-            setHouseState({ ...houseState, description: e.target.value })
-          }
-        />
-      </div>
-      <div className="form-group mt-2">
-        <label htmlFor="price">Price</label>
-        <input
-          type="number"
-          className="form-control"
-          placeholder="Price"
-          value={houseState.price}
-          onChange={(e) =>
-            setHouseState({ ...houseState, price: parseInt(e.target.value) })
-          }
-        />
-      </div>
-      <div className="mt-2">
-        <img src={houseState.photo}></img>
-      </div>
-      <div className="form-group mt-2">
-        <label htmlFor="image">Image</label>
-        <input
-          id="image"
-          type="file"
-          className="form-control"
-          onChange={onFileSelected}
-        />
-      </div>
-      <div className="mt-2">
-        <img src={houseState.photo}></img>
-      </div>
-      <button
-        className="btn btn-primary mt-2"
-        disabled={!houseState.address || !houseState.country}
-        onClick={onSubmit}
-      >
-        Submit
-      </button>
-    </form>
+      <Paper elevation={3} sx={{ p: 4, maxWidth: 600, mx: "auto", mt: 4 }}>
+      <form onSubmit={onSubmit}>
+        <Stack spacing={3}>
+          <TextField
+            label="Address"
+            variant="outlined"
+            fullWidth
+            value={houseState.address}
+            onChange={(e) =>
+              setHouseState({ ...houseState, address: e.target.value })
+            }
+          />
+          <TextField
+            label="Country"
+            variant="outlined"
+            fullWidth
+            value={houseState.country}
+            onChange={(e) =>
+              setHouseState({ ...houseState, country: e.target.value })
+            }
+          />
+          <TextField
+            label="Description"
+            variant="outlined"
+            fullWidth
+            multiline
+            minRows={3}
+            value={houseState.description}
+            onChange={(e) =>
+              setHouseState({ ...houseState, description: e.target.value })
+            }
+          />
+          <TextField
+            label="Price"
+            type="number"
+            variant="outlined"
+            fullWidth
+            value={houseState.price}
+            onChange={(e) =>
+              setHouseState({
+                ...houseState,
+                price: parseInt(e.target.value),
+              })
+            }
+          />
+
+          <Box>
+            <Typography variant="subtitle2" sx={{ mb: 1 }}>
+              Image
+            </Typography>
+            <input type="file" onChange={onFileSelected} />
+          </Box>
+
+          {houseState.photo && (
+            <Box>
+              <img
+                src={houseState.photo}
+                alt="Preview"
+                style={{
+                  width: "100%",
+                  maxHeight: "200px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                }}
+              />
+            </Box>
+          )}
+
+          <Button
+            variant="contained"
+            type="submit"
+            disabled={!houseState.address || !houseState.country}
+          >
+            Submit
+          </Button>
+        </Stack>
+      </form>
+    </Paper>
     );
-}
+};
 
 export default HouseForm;
