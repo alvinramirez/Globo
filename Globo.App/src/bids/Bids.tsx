@@ -5,6 +5,22 @@ import { House } from "../types/house"
 import { Bid } from "../types/bids"
 import { currencyFormatter } from "../config"
 
+import {
+  Box,
+  Typography,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  Paper,
+  TextField,
+  Button,
+  Stack,
+  Alert,
+} from "@mui/material";
+
 type Args = {
     house: House
 }
@@ -37,66 +53,64 @@ const Bids = ({ house }: Args) => {
     }
 
     return (
-        <>
-          <div className="row mt-4">
-            <div className="col-12">
-              <table className="table table-sm">
-                <thead>
-                  <tr>
-                    <th>Bidder</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data &&
-                    data.map((b) => (
-                      <tr key={b.id}>
-                        <td>{b.bidder}</td>
-                        <td>{currencyFormatter.format(b.amount)}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-4">
-              <input
-                id="bidder"
-                className="h-100"
-                type="text"
-                value={bid.bidder}
-                onChange={(e) => setBid({ ...bid, bidder: e.target.value })}
-                placeholder="Bidder"
-              ></input>
-            </div>
-            <div className="col-4">
-              <input
-                id="amount"
-                className="h-100"
-                type="number"
-                value={bid.amount}
-                onChange={(e) =>
-                  setBid({ ...bid, amount: parseInt(e.target.value) })
-                }
-                placeholder="Amount"
-              ></input>
-            </div>
-            <div className="col-2">
-              <button
-                className="btn btn-primary"
-                onClick={() => onBidSubmitClick()}
-              >
-                Add
-              </button>
-            </div>
-          </div>
-          {error && (
-            <div className="row mt-2">
-                <div className="col-12 text-danger">{error}</div>
-            </div>
-          )}
-        </>
+      <Box mt={4}>
+        <Typography variant="h6" gutterBottom>
+          Bids
+        </Typography>
+
+      <TableContainer component={Paper} sx={{ mb: 3 }}>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Bidder</TableCell>
+              <TableCell>Amount</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data &&
+              data.map((b) => (
+                <TableRow key={b.id}>
+                  <TableCell>{b.bidder}</TableCell>
+                  <TableCell>
+                    {currencyFormatter.format(b.amount)}
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+        <TextField
+          label="Bidder"
+          value={bid.bidder}
+          fullWidth
+          onChange={(e) => setBid({ ...bid, bidder: e.target.value })}
+        />
+        <TextField
+          label="Amount"
+          type="number"
+          value={bid.amount}
+          fullWidth
+          onChange={(e) =>
+            setBid({ ...bid, amount: parseInt(e.target.value) })
+          }
+        />
+        <Button
+          variant="contained"
+          onClick={onBidSubmitClick}
+          sx={{ minWidth: 100 }}
+        >
+          Add
+        </Button>
+      </Stack>
+
+      {error && (
+        <Box mt={2}>
+          <Alert severity="error">{error}</Alert>
+        </Box>
+      )}
+    </Box>
       );
 };
 
