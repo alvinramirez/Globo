@@ -24,7 +24,7 @@ import {
     if (!isSuccess) return <ApiStatus status={status} />;
   
     return (
-      <Container maxWidth="sm" sx={{ mt: 4 }}>
+      <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Box textAlign="center" mb={3}>
           <Typography variant="h5" color="primary" fontWeight="bold">
             Houses currently on the market
