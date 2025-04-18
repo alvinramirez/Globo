@@ -10,38 +10,46 @@ const Header = ({ subtitle }: Args) => {
     const nav = useNavigate();
 
     return (
-        <Box component="header" sx={{ mb: 4 }}>
-            <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={12} sm={5}>
+        <Box
+            component="header"
+            sx={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                bgcolor: "primary.main",
+                color: "white",
+                py: 2,
+                px: { xs: 2, sm: 4, md: 8 },
+                boxShadow: 3,
+                zIndex: 1300,
+            }}
+        >
+            <Grid container alignItems="center">
+                <Grid 
+                    item
+                    xs={12}
+                    sm={6}
+                    display="flex"
+                    alignItems="center">
                 <Box
                     component="img"
                     src={logo}
                     alt="logo"
                     onClick={() => nav("/")}
                     sx={{
-                    maxWidth: "150px",
-                    cursor: "pointer",
-                    display: "block",
-                    mx: { xs: "auto", sm: "0" },
+                        maxHeight: 50,
+                        cursor: "pointer",
+                        mr: 2,
                     }}
-                />
+                    />
+                    <Typography variant="h6" sx={{ ml: 2 }}>
+                        {subtitle}
+                    </Typography>
                 </Grid>
-                <Grid item xs={12} sm={7}>
-                <Typography
-                    variant="subtitle1"
-                    color="secondary"
-                    sx={{
-                    mt: { xs: 2, sm: 5 },
-                    textAlign: { xs: "center", sm: "left" },
-                    display: { xs: "none", sm: "block" },
-                    }}
-                >
-                    {subtitle}
-                </Typography>
-                </Grid>
-            </Grid>
-    </Box>
+            </Grid>            
+        </Box>
     );
 };
 
-export default Header
+export default Header;
