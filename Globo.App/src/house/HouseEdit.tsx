@@ -3,6 +3,7 @@ import { useFetchHouse, useUpdateHouse } from "../hooks/HouseHooks";
 import ApiStatus from "../apiStatus";
 import HouseForm from "./HouseForm";
 import ValidationSummary from "../ValidationSummary";
+import { Box } from "@mui/material";
 
 const HouseEdit = () => {
     const { id } = useParams();
@@ -15,7 +16,7 @@ const HouseEdit = () => {
     if (!isSuccess) return <ApiStatus status={status}/>
 
     return (
-        <>
+        <Box sx={{ mt: 4 }}>
             {updateHouseMutation.isError && (
                 <ValidationSummary error={updateHouseMutation.error} />
             )}
@@ -23,7 +24,7 @@ const HouseEdit = () => {
                 house={data}
                 submitted={h => updateHouseMutation.mutate(h)}
             />
-        </>
+        </Box>
     );
 };
 
