@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDeleteHouse, useFetchHouse } from "../hooks/HouseHooks";
 import ApiStatus from "../apiStatus";
@@ -15,6 +16,7 @@ import {
   CardContent,
   Stack,
   Container,
+  Skeleton,
 } from "@mui/material";
 
 const HouseDetail = () => {
@@ -24,10 +26,33 @@ const HouseDetail = () => {
 
     const { data, status, isSuccess} = useFetchHouse(houseId);
     const deleteHouseMutation = useDeleteHouse();
+    const [showContent, setShowContent] = useState(false);
 
+    useEffect(() => {
+      const timer = setTimeout(() => setShowContent(true), 1000);
+      return () => clearTimeout(timer);
+    }, []);
+
+    
+    if (status === "pending" || !showContent) 
+    {
+      return (
+        <Container maxWidth="lg" sx={{ mt: 4 }}>
+          <Box textAlign="center" mb={3}>
+            <Skeleton variant="rectangular" height={40} width="100%" sx={{ mx: "auto", minWidth: "600px" }} />
+            <Skeleton variant="text" height={40} width="100%" sx={{ mx: "auto", minWidth: "600px" }} />
+            <Skeleton variant="text" height={40} width="100%" sx={{ mx: "auto", minWidth: "600px" }} />
+            <Skeleton variant="text" height={40} width="100%" sx={{ mx: "auto", minWidth: "600px" }} />
+            <Skeleton variant="rectangular" height={40} width="100%" sx={{ mx: "auto", minWidth: "600px" }} />
+          </Box>
+        </Container>
+      )
+      
+    }
+    
     if (!isSuccess) return <ApiStatus status={status}/>
     if (!data) return <div>House not found</div>
-
+    
     console.log("Casa cargada:", data);
 
     return (
